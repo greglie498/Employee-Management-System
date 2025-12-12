@@ -1,5 +1,6 @@
-package Sem_project;
+package com.greglie.employeemanagement.ui;
 
+import com.greglie.employeemanagement.App;
 import java.awt.*;
 import javax.swing.*;
 import com.toedter.calendar.JDateChooser;

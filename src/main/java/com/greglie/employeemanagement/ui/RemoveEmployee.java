@@ -1,5 +1,6 @@
-package Sem_project;
+package com.greglie.employeemanagement.ui;
 
+import com.greglie.employeemanagement.App;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;

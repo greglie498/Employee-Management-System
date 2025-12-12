@@ -1,5 +1,7 @@
-package Sem_project;
+package com.greglie.employeemanagement.ui;
 
+import com.greglie.employeemanagement.App;
+import com.greglie.employeemanagement.App;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
@@ -43,7 +45,7 @@ public class ViewEmployee extends JFrame implements ActionListener {
                     }
                     String columnName = tableModel.getColumnName(selectedColumn);
                     try {
-                        appController.showUpdateEmployeeScreen(empId, columnName); // Corrected
+                        appController.showUpdateEmployeeScreen(empId); // Corrected
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }

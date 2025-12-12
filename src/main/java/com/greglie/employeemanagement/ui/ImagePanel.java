@@ -1,4 +1,4 @@
-package Sem_project;
+package com.greglie.employeemanagement.ui;
 
 import javax.swing.*;
 import java.awt.*;

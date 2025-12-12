@@ -1,4 +1,4 @@
-package Sem_project;
+package com.greglie.employeemanagement.util;
 
 import java.sql.*;
 
@@ -6,30 +6,18 @@ public class Conn {
 
    Connection c = null; // Initialize to null
     Statement s;
-    private static final String DB_URL = "jdbc:mysql://localhost/employee_db";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/employee_db?useSSL=false&serverTimezone=UTC";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = ""; // SECURITY RISK!
 
-    public Conn() {
-        try {
-            c = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-            s = c.createStatement();
-            System.out.println("Database connection established successfully!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-           
-        }
+    public static Connection getConnection() throws SQLException{
+        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
     }
-
-    public Connection getConnection() {
-        return c;
-    }
-
     public Statement getStatement() {
         return s;
     }
   
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Conn conn = new Conn();
         Connection c = conn.getConnection();
         Statement s = conn.getStatement();

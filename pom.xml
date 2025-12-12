@@ -12,11 +12,20 @@
     
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>23</maven.compiler.release>
-    <exec.mainClass>Sem_project.App</exec.mainClass>  
+    <maven.compiler.release>23</maven.compiler.release>  
 </properties>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>com.greglie.employeemanagement.App</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
     <resources>
         <resource>
             <directory>src/main/resources</directory>

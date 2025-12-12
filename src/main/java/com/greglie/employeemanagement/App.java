@@ -1,6 +1,16 @@
-package Sem_project;
+package com.greglie.employeemanagement;
 
+import com.greglie.employeemanagement.ui.ViewEmployee;
+import com.greglie.employeemanagement.ui.UpdateEmployee;
+import com.greglie.employeemanagement.ui.Login;
+import com.greglie.employeemanagement.ui.Splash;
+import com.greglie.employeemanagement.ui.RemoveEmployee;
+import com.greglie.employeemanagement.ui.Home;
+import com.greglie.employeemanagement.ui.AddEmployee;
+import com.greglie.employeemanagement.util.Conn;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class App {
@@ -16,16 +26,20 @@ public class App {
    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             App app = new App();
-            if (app.initialize()) { 
-                app.start();
-            } else {
-                JOptionPane.showMessageDialog(null, "Failed to connect to the database. Application will exit.", "Database Error", JOptionPane.ERROR_MESSAGE);
-                System.exit(1); 
+            try {
+                if (app.initialize()) {
+                    app.start();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to connect to the database. Application will exit.", "Database Error", JOptionPane.ERROR_MESSAGE); 
+                    System.exit(1);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
 
-    public boolean initialize() {
+    public boolean initialize() throws SQLException {
         connScreen = new Conn();
         if (connScreen.getConnection() == null) {
             return false; 
@@ -71,13 +85,13 @@ public class App {
         viewEmployeeScreen.setVisible(true);
     }
 
-    public void showUpdateEmployeeScreen(String empId, String columnName) throws SQLException {
+    public void showUpdateEmployeeScreen(String empId) throws SQLException {
         System.out.println("showUpdateEmployeeScreen called. EmpId: "+ empId); //debugging line.
         closeCurrentScreen(viewEmployeeScreen);
         if (updateEmployeeScreen != null) {
             updateEmployeeScreen.dispose();
         }
-        updateEmployeeScreen = new UpdateEmployee(empId, columnName, this);
+        updateEmployeeScreen = new UpdateEmployee(empId,  this);
         updateEmployeeScreen.setVisible(true);
     }
 

@@ -1,5 +1,7 @@
-package Sem_project;
+package com.greglie.employeemanagement.ui;
 
+import com.greglie.employeemanagement.App;
+import com.greglie.employeemanagement.util.Conn;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -58,7 +60,7 @@ public void actionPerformed(ActionEvent ae) {
 
         Conn c = new Conn();
         conn = c.getConnection();
-        String query = "SELECT * FROM login WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM log_in WHERE username = ? AND password = ?";
         pstmt = conn.prepareStatement(query);
         pstmt.setString(1, username);
         pstmt.setString(2, password);
