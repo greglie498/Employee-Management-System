@@ -1,0 +1,7 @@
+com\greglie\employeemanagement\ui\UpdateEmployeeTest.class
+com\greglie\employeemanagement\ui\AddEmployeeTest.class
+com\greglie\employeemanagement\ui\ViewEmployeeTest.class
+com\greglie\employeemanagement\ui\HomeTest.class
+com\greglie\employeemanagement\ui\RemoveEmployeeTest.class
+com\greglie\employeemanagement\ui\LoginTest.class
+com\greglie\employeemanagement\util\ConnTest.class
