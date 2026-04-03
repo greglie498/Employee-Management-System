@@ -4,6 +4,8 @@
  */
 package com.greglie.employeemanagement.ui;
 
+import com.greglie.employeemanagement.App;
+import com.greglie.employeemanagement.controller.AppController;
 import java.awt.event.ActionEvent;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -11,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.Mockito;
 
 /**
  *
@@ -42,10 +45,12 @@ public class HomeTest {
      */
     @Test
     public void testActionPerformed() {
-        System.out.println("actionPerformed");
-        ActionEvent ae = null;
-        Home instance = null;
-        instance.actionPerformed(ae);
+       App controller = Mockito.mock(App.class);
+       Home instance =new Home(controller);
+       
+       ActionEvent ae = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "test");
+       
+       assertDoesNotThrow(() -> instance.actionPerformed(ae));
         
     }
 
