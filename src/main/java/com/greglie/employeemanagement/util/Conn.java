@@ -20,15 +20,16 @@ public class Conn {
     public static void main(String[] args) throws SQLException {
         Conn conn = new Conn();
         Connection c = conn.getConnection();
-        Statement s = conn.getStatement();
+        Statement s = null;
         ResultSet rs = null;
 
         try {
-            String query = "SELECT * FROM employee"; // Using the consistent table name
+            s = c.createStatement();
+            String query = "SELECT * FROM employees";
             rs = s.executeQuery(query);
 
             while (rs.next()) {
-                System.out.println("Employee ID: " + rs.getInt("empId")); // Assuming empId is the ID column
+                System.out.println("Employee ID: " + rs.getInt("id"));
                 System.out.println("Employee Name: " + rs.getString("name"));
             }
         } catch (SQLException e) {

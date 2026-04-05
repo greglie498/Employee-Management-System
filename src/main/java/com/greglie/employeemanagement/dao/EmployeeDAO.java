@@ -26,7 +26,7 @@ public class EmployeeDAO {
     }
     
     public void updateEmployee (Employee emp) throws SQLException {
-        String sql = "INSERT INTO employees (name, position, salary) VALUES (?,?,?)";
+        String sql = "UPDATE employees SET name=?, position=?, salary=? WHERE id=?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, emp.getName());
         stmt.setString(2, emp.getPosition());

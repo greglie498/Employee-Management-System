@@ -22,7 +22,7 @@ public class Employee{
     public int getId(){
         return id;
     }
-    public void  setId(){
+    public void setId(int id){
         this.id= id;
     }
     
@@ -30,21 +30,21 @@ public class Employee{
     public String getName(){
         return name;
     }
-    public void setName(){
+    public void setName(String name){
         this.name= name;
     }
     
     public String getPosition(){
         return position;
     }
-    public void setPosition(){
+    public void setPosition(String position){
         this.position= position;
     }
     
     public double getSalary(){
         return salary;
     }
-    public void setSalary(){
+    public void setSalary(double salary){
         this.salary= salary;
     }
 

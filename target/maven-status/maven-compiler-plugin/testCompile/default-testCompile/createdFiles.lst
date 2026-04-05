@@ -1,5 +1,8 @@
 com\greglie\employeemanagement\ui\UpdateEmployeeTest.class
+com\greglie\employeemanagement\service\EmployeeServiceTest.class
 com\greglie\employeemanagement\ui\AddEmployeeTest.class
+com\greglie\employeemanagement\dao\EmployeeDAOTest.class
+com\greglie\employeemanagement\model\EmployeeTest.class
 com\greglie\employeemanagement\ui\ViewEmployeeTest.class
 com\greglie\employeemanagement\ui\HomeTest.class
 com\greglie\employeemanagement\ui\RemoveEmployeeTest.class

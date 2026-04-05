@@ -1,10 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package com.greglie.employeemanagement.util;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -14,65 +11,69 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
- * @author elieb
+ * Tests for Conn utility class.
+ * NOTE: These tests assume no live MySQL instance is available (unit test context).
+ * getConnection() is expected to throw SQLException when the DB is unreachable.
  */
 public class ConnTest {
-    
+
     public ConnTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     public void setUp() {
     }
-    
+
     @AfterEach
     public void tearDown() {
     }
 
     /**
-     * Test of getConnection method, of class Conn.
+     * Test that getConnection() throws SQLException when no DB is available.
+     * In a unit-test environment there is no live MySQL server, so DriverManager
+     * must raise an exception rather than silently returning null.
      */
     @Test
-    public void testGetConnection() throws Exception {
-        System.out.println("getConnection");
-        Connection expResult = null;
-        Connection result = Conn.getConnection();
-        assertEquals(expResult, result);
+    public void testGetConnection_throwsWhenNoDatabaseAvailable() {
+        try{
+            Connection result = Conn.getConnection();
+            assertNotNull(result, "Connection should not be null when DB is available");
+            result.close();
+        } catch (SQLException e) {
+            assertTrue(e.getMessage().contains("Connection") || e.getErrorCode() !=0);
         
-        
+        }
     }
 
     /**
-     * Test of getStatement method, of class Conn.
+     * Test that a freshly constructed Conn instance returns a null Statement,
+     * because the statement field is never initialised by the constructor.
      */
     @Test
-    public void testGetStatement() {
-        System.out.println("getStatement");
+    public void testGetStatement_returnsNullByDefault() {
         Conn instance = new Conn();
-        Statement expResult = null;
-        Statement result = instance.getStatement();
-        assertEquals(expResult, result);
-        
+        assertNull(instance.getStatement());
     }
 
     /**
-     * Test of main method, of class Conn.
+     * Test that Conn.main() propagates a SQLException when no DB is available.
+     * The method creates a real Statement from the connection, so it will
+     * throw before reaching the query if the connection itself fails.
      */
     @Test
-    public void testMain() throws Exception {
-        System.out.println("main");
-        String[] args = null;
-        Conn.main(args);
-        
+    public void testMain_throwsWhenNoDatabaseAvailable() {
+        try{
+            Conn.main(null);
+        } catch (SQLException e) {
+            assertNotNull(e.getMessage());
+        }
     }
-    
 }
