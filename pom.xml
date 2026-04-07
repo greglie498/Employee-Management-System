@@ -12,7 +12,7 @@
     
     <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>23</maven.compiler.release>  
+    <maven.compiler.release>21</maven.compiler.release>  
 </properties>
 
     <build>
@@ -26,18 +26,80 @@
                 </configuration>
             </plugin>
             
+            <!-- Compiler -->
             <plugin>
-                <groupId>org.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.1</version>
+            </plugin>
+            
+            <!-- Surefire(Test Runner) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
                     <argLine>
                         -Djava.awt.headless=true
                         -Dnet.bytebuddy.experimental=true
-                        -XX: 
                     </argLine>
                 </configuration>
             </plugin>
+            
+            <!-- METRIC 1: JaCoCo - Test Coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>jacoco.agent</propertyName>
+                        </configuration>
+                    </execution>
+                </executions>    
+            </plugin>
+            
+            <!-- METRIC 2: SpotBugs - Bug Detection -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.8.3.1</version>
+            </plugin>
+            
+            <!-- METRIC 3: PMD - Complexity + Code Quality -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                 <version>3.21.2</version>
+                <configuration>
+                    <targetJdk>21</targetJdk>
+                    <minimumTokens>50</minimumTokens>
+                </configuration>
+            </plugin>
+            
+            <!-- METRIC 4: Checkstyle -  Style & Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>mavne-checkstyle-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                    <failOnViolation>false</failOnViolation>
+                </configuration>
+            </plugin>
+            
+            <!-- METRIC 7: Dependency Analysis -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>3.6.1</version>
+        </plugin>
+
         </plugins>
     <resources>
         <resource>
@@ -48,6 +110,68 @@
         </resource>
     </resources>
 </build>
+
+<!-- Reporting Section - generates all HTML reports -->
+<reporting>
+    <plugins>
+
+        <!-- Surefire Report (Test Pass Rate) -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-report-plugin</artifactId>
+            <version>3.2.5</version>
+        </plugin>
+
+        <!-- JaCoCo Report -->
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.11</version>
+            <reportSets>
+                <reportSet>
+                    <reports><report>report</report></reports>
+                </reportSet>
+            </reportSets>
+        </plugin>
+
+        <!-- PMD Report -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <version>3.21.2</version>
+            <configuration>
+                <targetJdk>21</targetJdk>
+            </configuration>
+        </plugin>
+
+        <!-- SpotBugs Report -->
+        <plugin>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs-maven-plugin</artifactId>
+            <version>4.8.3.1</version>
+        </plugin>
+
+        <!-- Checkstyle Report -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>3.3.1</version>
+            <configuration>
+                <configLocation>google_checks.xml</configLocation>
+            </configuration>
+        </plugin>
+
+        <!-- Javadoc Report (Usability) -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.6.3</version>
+        </plugin>
+
+    </plugins>
+    
+</reporting>
+
 
     <dependencies>
         <dependency>
@@ -68,6 +192,13 @@
             <version>5.14.2</version>
             <scope>test</scope>
         </dependency>
+        
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>5.12.0</version>
+                <scope>test</scope>
+            </dependency>
         
      
         <dependency>
